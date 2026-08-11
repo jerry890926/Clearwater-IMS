@@ -7,6 +7,7 @@ spec:
   template:
     metadata:
       labels:
+        app: ims
         service: ellis
     spec:
       containers:
@@ -31,6 +32,13 @@ spec:
         readinessProbe:
           tcpSocket:
             port: 80
+        #resources:
+          #requests:
+            #cpu: "100m"
+            #memory: "128Mi"
+          #limits:
+            #cpu: "2000m"
+            #memory: "1024Mi"
       imagePullSecrets:
       - name: {{IMAGE_SECRET}}
       restartPolicy: Always

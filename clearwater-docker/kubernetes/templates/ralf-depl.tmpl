@@ -6,10 +6,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      app: ims
       service: ralf
   template:
     metadata:
       labels:
+        app: ims
         service: ralf
         snmp: enabled
     spec:
@@ -38,6 +40,13 @@ spec:
         volumeMounts:
         - name: ralflogs
           mountPath: /var/log/ralf
+        #resources:
+          #requests:
+            #cpu: "100m"
+            #memory: "128Mi"
+          #limits:
+            #cpu: "2000m"
+            #memory: "1024Mi"
       - image: busybox
         name: tailer
         command: [ "tail", "-F", "/var/log/ralf/ralf_current.txt" ]

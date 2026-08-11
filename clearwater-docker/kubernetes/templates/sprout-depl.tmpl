@@ -6,10 +6,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      app: ims
       service: sprout
   template:
     metadata:
       labels:
+        app: ims
         service: sprout
         snmp: enabled
     spec:
@@ -38,6 +40,13 @@ spec:
         volumeMounts:
         - name: sproutlogs
           mountPath: /var/log/sprout
+        #resources:
+          #requests:
+            #cpu: "100m"
+            #memory: "128Mi"
+          #limits:
+            #cpu: "1000m"
+            #memory: "512Mi"
       - image: busybox
         name: tailer
         command: [ "tail", "-F", "/var/log/sprout/sprout_current.txt" ]

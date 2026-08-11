@@ -8,6 +8,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
+        app: ims
         instance-type: etcd-pod
     spec:
       containers:
@@ -55,6 +56,13 @@ spec:
         readinessProbe:
           tcpSocket:
             port: 4001
+        #resources:
+          #requests:
+            #cpu: "100m"
+            #memory: "128Mi"
+          #limits:
+            #cpu: "2000m"
+            #memory: "1024Mi"
       imagePullSecrets:
       - name: {{IMAGE_SECRET}}
       restartPolicy: Always

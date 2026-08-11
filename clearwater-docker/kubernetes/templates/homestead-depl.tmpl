@@ -6,10 +6,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      app: ims
       service: homestead
   template:
     metadata:
       labels:
+        app: ims
         service: homestead
         snmp: enabled
     spec:
@@ -38,6 +40,13 @@ spec:
         volumeMounts:
         - name: homesteadlogs
           mountPath: /var/log/homestead
+        #resources:
+          #requests:
+            #cpu: "100m"
+            #memory: "128Mi"
+          #limits:
+            #cpu: "2000m"
+            #memory: "1024Mi"
       - image: busybox
         name: tailer
         command: [ "tail", "-F", "/var/log/homestead/homestead_current.txt" ]
