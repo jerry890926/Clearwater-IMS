@@ -4,4 +4,4 @@
 ```git clone https://github.com/jerry890926/Clearwater-IMS.git```
 
 ## Change directory
-```cd Clearwater-IMS/clearwarter-docker```
+```cd Clearwater-IMS/clearwater-docker/kubernetes```
