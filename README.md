@@ -238,7 +238,11 @@ kubectl sniff -n [namespace] [pod name] -o - | tshark -r - -t ad   # 3. 捕獲�
 - IMS Bench SIPp — <https://sipp.sourceforge.net/ims_bench/reference.html#Installation>
 - Jitsi — <https://jitsi.org/>
 - Wireshark — <https://www.wireshark.org/download.html>
-- Istio - <https://istio.io/latest/zh/docs/ops/deployment/deployment-models/> <https://ithelp.ithome.com.tw/articles/10289718>
-- 前人Istio的安裝教學 <https://hackmd.io/@willyttt/rybCIs7Co> <https://hackmd.io/tw1nHriBSpaDq1I0OK1CJw>
+- Istio
+  - <https://istio.io/latest/zh/docs/ops/deployment/deployment-models/>
+  - <https://ithelp.ithome.com.tw/articles/10289718>
+- 前人Istio的安裝教學
+  - <https://hackmd.io/@willyttt/rybCIs7Co>
+  - <https://hackmd.io/tw1nHriBSpaDq1I0OK1CJw>
 - 前人OCM的安裝教學<https://hackmd.io/LYNoIKFVTzK6_nHLotGr_g>
 - Jaeger(Istio觀測服務間的流量) - <https://ithelp.ithome.com.tw/m/articles/10253028>
