@@ -58,8 +58,12 @@ sudo systemctl restart containerd
 ---
 
 ## 三、IMS 部署
+[這邊的檔案已經被我魔改成可以跑的，直接下載即可; 原始檔請參考 https://github.com/Metaswitch/clearwater-docker.git]{.label .info}
+
 ### Download IMS file
 ```git clone https://github.com/jerry890926/Clearwater-IMS.git```
 
 ### Change directory
 ```cd Clearwater-IMS/clearwater-docker/kubernetes```
+
+
