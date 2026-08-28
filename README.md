@@ -2,7 +2,7 @@
 - [k8s 安裝](#一kubernetes-安裝參考實驗室課程連結)
 - [docker/containerd 設置](#二架設私有docker-registry)
 - [IMS 部署](#三ims-部署)
-- [SIP-stress測試](#四、sip-stress測試)
+- [SIP-stress測試](#四sip-stress測試)
   
 ## 一、Kubernetes 安裝參考實驗室課程[連結](https://github.com/CYCU-CDLAB/1142-k8s-document/blob/main/Lab0%20k8s%20installation/k8s_installation.md)
 
