@@ -10,8 +10,6 @@ kubectl get po -n kube-system    # K8s 系統元件與 Calico 皆為 Running
 docker version                   # docker 可用（build / push image 用）
 ```
 
-![kube-system pods](image/po_k8s_system.png)
-
 ### 架設私有Docker Registry
 
 以下的 `{master IP}` 一律替換為 master 的實際 IP。
