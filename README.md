@@ -67,6 +67,113 @@ sudo systemctl restart containerd
 ```git clone https://github.com/jerry890926/Clearwater-IMS.git```
 
 ### Change directory
-```cd Clearwater-IMS/clearwater-docker/kubernetes```
+```cd Clearwater-IMS/clearwater-docker```
+
+### 創建images
+
+```bash
+cd clearwater-docker
+for i in base astaire cassandra chronos bono ellis homer homestead homestead-prov ralf sprout ; do docker build -t clearwater/$i $i ; done
+```
 
 
+### 將創建的images推送至Registry
+
+```bash
+for i in astaire cassandra chronos bono ellis homer homestead homestead-prov ralf sprout
+do
+    docker tag clearwater/$i:latest {master IP}:5000/clearwater/$i:latest
+    docker push {master IP}:5000/clearwater/$i:latest
+done
+```
+
+確認 registry 內容：
+
+```bash
+curl http://{master IP}:5000/v2/_catalog
+# {"repositories":["clearwater/astaire","clearwater/bono", ... ]}
+```
+
+> [!NOTE]
+> etcd 的原始載點 `quay.io/coreos/etcd:v2.2.5` 已從 quay.io 下架，改用備份在 Docker Hub 的副本（`jerry890926/ims-repo:etcd-v2.2.5`）。**樣板不改名，pod 仍使用原名 `quay.io/coreos/etcd:v2.2.5`**——做法是讓本地 registry 作為 quay.io 的 mirror。
+
+於 **master** 把備份推進 registry：
+
+```bash
+docker pull jerry890926/ims-repo:etcd-v2.2.5
+docker tag jerry890926/ims-repo:etcd-v2.2.5 {master IP}:5000/quay.io/coreos/etcd:v2.2.5
+docker push {master IP}:5000/quay.io/coreos/etcd:v2.2.5
+```
+
+於**所有節點**新增 quay.io 的 mirror 設定——certs.d 的目錄名就是 image 名開頭的 registry host（`config_path` 已啟用；hosts.toml 於每次拉取時即時讀取，不需重啟 containerd）：
+
+```bash
+sudo mkdir -p /etc/containerd/certs.d/quay.io
+sudo tee /etc/containerd/certs.d/quay.io/hosts.toml <<EOF
+server = "https://quay.io"
+
+[host."http://{master IP}:5000"]
+  capabilities = ["pull", "resolve"]
+EOF
+```
+
+驗證（任一節點，應成功拉下）：
+
+```bash
+sudo crictl pull quay.io/coreos/etcd:v2.2.5
+```
+
+### 創建configmap
+
+```bash
+kubectl create configmap env-vars --from-literal=ZONE=default.svc.cluster.local
+```
+
+### 部署工具 helm安裝
+
+```bash
+cd clearwater-docker/kubernetes
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+```
+### 執行 k8s-gencfg
+
+```bash
+./k8s-gencfg --image_path={master IP}:5000/clearwater --image_tag=latest
+```
+
+> [!NOTE]
+> `k8s-gencfg` 會同時生成兩套配置yaml：
+> - `kubernetes/` 頂層的yaml（給 `kubectl apply -f` 手動部署用）
+> - `kubernetes/clearwater/` Helm chart。
+
+>[!INPORTANT]
+> 要修改IMS的資源配置，請去修改 kubernetes/templates/*.tmpl 這些檔案
+>
+> 修改完後再次 ./k8s-gencfg ...，重新生成yaml檔 
+
+### helm部署IMS系統
+
+```bash
+cd clearwater-docker/kubernetes
+
+# 安裝
+helm install clearwater clearwater
+```
+
+### 觀察clearwater IMS之Pod
+
+```bash
+kubectl get po
+```
+
+### 補充：卸載IMS
+
+```bash
+cd clearwater-docker/kubernetes
+
+# 卸載
+helm delete clearwater
+```
+---
