@@ -1,9 +1,9 @@
 # Clearwater-IMS
-- [k8s 安裝](1)
+- [k8s 安裝](## 一、Kubernetes 安裝參考實驗室課程[連結](https://github.com/CYCU-CDLAB/1142-k8s-document/blob/main/Lab0%20k8s%20installation/k8s_installation.md))
 - [docker/containerd 設置](2)
 - [IMS 部署](3)
   
-[1] ## 一、Kubernetes 安裝參考實驗室課程[連結](https://github.com/CYCU-CDLAB/1142-k8s-document/blob/main/Lab0%20k8s%20installation/k8s_installation.md)
+[## 一、Kubernetes 安裝參考實驗室課程[連結](https://github.com/CYCU-CDLAB/1142-k8s-document/blob/main/Lab0%20k8s%20installation/k8s_installation.md)]
 
 ### 開始前於 master 確認：
 
@@ -13,7 +13,7 @@ kubectl get po -n kube-system    # K8s 系統元件與 Calico 皆為 Running
 docker version                   # docker 可用（build / push image 用）
 ```
 ---
-[2] ## 二、架設私有Docker Registry
+[## 二、架設私有Docker Registry]
 
 以下的 `{master IP}` 一律替換為 master 的實際 IP。
 
