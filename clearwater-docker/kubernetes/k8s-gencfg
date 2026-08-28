@@ -7,10 +7,11 @@ import argparse
 import os
 import re
 
+
+
 def parse_file(args,filename, input_file, output_file):
     with open(input_file) as file:
         input_data = file.read()
-
     # IMAGE_SECRET is an optional argument
     # ~ means null in yaml
     output_data = input_data.replace("{{IMAGE_PATH}}", args.image_path) \
@@ -32,7 +33,6 @@ def parse_file(args,filename, input_file, output_file):
     matchLabels:
       instance-type: etcd-pod"""
                 output_data = output_data.replace("spec:",text,1)
-
     with open(output_file, "w") as file:
         file.write(output_data)
 
@@ -44,8 +44,8 @@ def parse_files_in_dir(args, src, dest):
 
         print("Generate %s from %s" % (output_file_name, template_file_name))
 
-        parse_file(args, template_name, os.path.join(src, template_file_name), os.path.join(dest, template_name+".yaml"))
-
+        #parse_file(args, os.path.join(src, template_file_name), os.path.join(dest, template_name+".yaml"))
+        parse_file(args, template_file_name, os.path.join(src, template_file_name), os.path.join(dest, template_name+".yaml"))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -79,4 +79,3 @@ if __name__ == '__main__':
 
     helm_args=parser.parse_args(args=['--image_path', '{{ .Values.image.path }}', '--image_tag', '{{ .Values.image.tag }}'])
     parse_files_in_dir(helm_args, src=template_dir, dest=helmchart_templates_dir)
-

@@ -17,7 +17,10 @@ ENV LC_ALL en_US.UTF-8
 COPY sysctl /sbin/sysctl
 RUN sed -e 's/\#\(precedence ::ffff:0:0\/96  100\)/\1/g' -i /etc/gai.conf
 
+#RUN echo deb http://repo.cw-ngv.com/stable binary/ > /etc/apt/sources.list.d/clearwater.list
 RUN echo deb http://artifacts.opnfv.org/functest/clearwater/debian ./ > /etc/apt/sources.list.d/clearwater.list
+
+#RUN curl -L http://repo.cw-ngv.com/repo_key | apt-key add -
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes clearwater-infrastructure clearwater-auto-config-docker clearwater-management
 RUN apt-get install -y --force-yes clearwater-snmpd
 RUN /etc/init.d/clearwater-auto-config-docker restart
@@ -37,4 +40,3 @@ COPY liveness.sh /usr/share/kubernetes/
 # so copy the relevant supervisord config into the base container and we'll move it to /etc/supervisor/conf.d so that it actually gets 
 # invoked in the containers that need it.
 COPY socket-factory.supervisord.conf /etc/clearwater/socket-factory.supervisord.conf
-

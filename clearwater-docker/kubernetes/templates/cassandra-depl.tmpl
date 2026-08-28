@@ -35,13 +35,13 @@ spec:
         readinessProbe:
           exec:
             command: ["/bin/bash", "/usr/share/kubernetes/liveness.sh", "7000 9042 9160"]
-        #resources:
-          #requests:
-            #cpu: "100m"
-            #memory: "128Mi"
-          #limits:
-            #cpu: "2000m"
-            #memory: "1024Mi"
+        # resources:
+          # requests:
+            # cpu: "100m"
+            # memory: "128Mi"
+          # limits:
+            # cpu: "2000m"
+            # memory: "1024Mi"
       imagePullSecrets:
       - name: {{IMAGE_SECRET}}
       restartPolicy: Always
