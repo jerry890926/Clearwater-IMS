@@ -148,7 +148,7 @@ chmod 700 get_helm.sh
 > - `kubernetes/` 頂層的yaml（給 `kubectl apply -f` 手動部署用）
 > - `kubernetes/clearwater/` Helm chart。
 
->[!INPORTANT]
+>[!IMPORTANT]
 > 要修改IMS的資源配置，請去修改 kubernetes/templates/*.tmpl 這些檔案
 >
 > 修改完後再次 ./k8s-gencfg ...，重新生成yaml檔 
