@@ -2,6 +2,7 @@
 - [k8s 安裝](#一kubernetes-安裝參考實驗室課程連結)
 - [docker/containerd 設置](#二架設私有docker-registry)
 - [IMS 部署](#三ims-部署)
+- [SIP-stress測試](#四、sip-stress測試)
   
 ## 一、Kubernetes 安裝參考實驗室課程[連結](https://github.com/CYCU-CDLAB/1142-k8s-document/blob/main/Lab0%20k8s%20installation/k8s_installation.md)
 
@@ -177,3 +178,63 @@ cd clearwater-docker/kubernetes
 helm delete clearwater
 ```
 ---
+## 四、SIP Stress測試
+
+進入cassandra pod，註冊測試用的使用者：
+
+```bash
+/usr/share/clearwater/crest-prov/src/metaswitch/crest/tools/stress_provision.sh [numbers of subscribers]
+```
+
+進入ellis pod，下載sip-stress測試工具：
+
+```bash
+sudo su
+apt install clearwater-sip-stress
+cd /usr/share/clearwater/sip-stress
+```
+
+最後會看到兩個檔案，一個是測試用的使用者資訊（`users.csv.1`），另一個是測試用的場景（`sip-stress.xml`）。
+
+把 `users.csv.1`、`scenario-revise.xml` 傳入 `/usr/share/clearwater/sip-stress` 路徑底下：
+
+```bash
+kubectl cp scenario-revise.xml ellis-c587b6c7d-5vnmx:/usr/share/clearwater/sip-stress
+```
+
+Testing：
+
+```bash
+/usr/share/clearwater/bin/sipp -i [ellis private IP] -sf ./scenario-revise.xml [Bono private IP]:5060 -t tn -s default.svc.cluster.local -inf ./users.csv.1 -r [call rate]
+```
+
+| 參數 | 說明 |
+|---|---|
+| `-i` | 執行traffic generator的instance IP |
+| `-sf` | 測試場景的檔案位置 |
+| `-t` | tn為TCP模式, un為UDP模式 |
+| `-s` | IMS系統的domain |
+| `-inf` | 使用者資訊的位置 |
+| `-r` | 初始call rate |
+| `-rate_increase` | 增加多少個call rate, default為1秒 |
+| `-rate_max` | call rate到達多少時，停止測試 |
+| `-fd [秒數]` | 和`-rate_increase`一起使用，設定每秒call rate增加多少 |
+| `-trace_stat` | 輸出測試時的log檔 |
+| `-trace_rtt` | 輸出Call的response time |
+
+
+---
+## 附錄 — Ksniff 封包捕獲
+
+```bash
+kubectl krew install sniff                  # 1. 安裝 Ksniff
+apt-get install tshark                      # 2. 安裝 tshark
+kubectl sniff -n [namespace] [pod name] -o - | tshark -r - -t ad   # 3. 捕獲封包
+```
+
+結果可寫成 `.pcap`，再以 Wireshark 解析，即可看到 Sprout 在 SIP 註冊與身分驗證流程中的角色。
+
+**相關工具**
+- IMS Bench SIPp — <https://sipp.sourceforge.net/ims_bench/reference.html#Installation>
+- Jitsi — <https://jitsi.org/>
+- Wireshark — <https://www.wireshark.org/download.html>
