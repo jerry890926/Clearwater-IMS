@@ -3,7 +3,7 @@
 - [docker/containerd 設置](#二架設私有docker-registry)
 - [IMS 部署](#三ims-部署)
 - [SIP-stress測試](#四sip-stress測試)
-- [附錄](#附錄—ksniff封包捕獲)
+- [附錄](#附錄ksniff封包捕獲)
 - [重要！！相關工具](#相關工具)
   
 ## 一、Kubernetes 安裝參考實驗室課程[連結](https://github.com/CYCU-CDLAB/1142-k8s-document/blob/main/Lab0%20k8s%20installation/k8s_installation.md)
@@ -235,6 +235,7 @@ kubectl sniff -n [namespace] [pod name] -o - | tshark -r - -t ad   # 3. 捕獲�
 ```
 
 結果可寫成 `.pcap`，再以 Wireshark 解析，即可看到 Sprout 在 SIP 註冊與身分驗證流程中的角色。
+
 ---
 ## 相關工具
 - IMS Bench SIPp — <https://sipp.sourceforge.net/ims_bench/reference.html#Installation>
