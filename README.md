@@ -185,6 +185,7 @@ helm delete clearwater
 進入cassandra pod，註冊測試用的使用者：
 
 ```bash
+# 通常是10000
 /usr/share/clearwater/crest-prov/src/metaswitch/crest/tools/stress_provision.sh [numbers of subscribers]
 ```
 
