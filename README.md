@@ -200,8 +200,7 @@ cd /usr/share/clearwater/sip-stress
 
 最後會看到兩個檔案，一個是測試用的使用者資訊（`users.csv.1`），另一個是測試用的場景（`sip-stress.xml`）。
 
-把 `users.csv.1`、`scenario-revise.xml` 傳入 `/usr/share/clearwater/sip-stress` 路徑底下：
-[users.csv.1](users.csv.1), [scenario-revise.xml](scenario-revise.xml)
+把 [users.csv.1](users.csv.1), [scenario-revise.xml](scenario-revise.xml) 傳入 `/usr/share/clearwater/sip-stress` 路徑底下：
 
 ```bash
 kubectl cp scenario-revise.xml ellis-c587b6c7d-5vnmx:/usr/share/clearwater/sip-stress
