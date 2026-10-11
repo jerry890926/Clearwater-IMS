@@ -185,7 +185,7 @@ helm delete clearwater
 進入cassandra pod，註冊測試用的使用者：
 
 ```bash
-# 注意這邊的數量要與user1.csv的用戶數相同，不然成功通話率會上不去！！！！！
+# 注意這邊的數量要與user.csv.1的用戶數相同，不然成功通話率會上不去！！！！！
 # 通常是10000
 /usr/share/clearwater/crest-prov/src/metaswitch/crest/tools/stress_provision.sh [numbers of subscribers]
 ```
