@@ -241,7 +241,7 @@ kubectl sniff -n [namespace] [pod name] -o - | tshark -r - -t ad   # 3. 捕獲�
 
 ---
 ## 相關工具
-- 資料集 - [dataset.zip]
+- 資料集 - ![dataset.zip]
 - IMS Bench SIPp — <https://sipp.sourceforge.net/ims_bench/reference.html#Installation>
 - Jitsi — <https://jitsi.org/>
 - Wireshark — <https://www.wireshark.org/download.html>
