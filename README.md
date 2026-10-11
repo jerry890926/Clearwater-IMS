@@ -201,6 +201,7 @@ cd /usr/share/clearwater/sip-stress
 最後會看到兩個檔案，一個是測試用的使用者資訊（`users.csv.1`），另一個是測試用的場景（`sip-stress.xml`）。
 
 把 `users.csv.1`、`scenario-revise.xml` 傳入 `/usr/share/clearwater/sip-stress` 路徑底下：
+[users.csv.1](users.csv.1), [scenario-revise.xml](scenario-revise.xml)
 
 ```bash
 kubectl cp scenario-revise.xml ellis-c587b6c7d-5vnmx:/usr/share/clearwater/sip-stress
@@ -241,7 +242,7 @@ kubectl sniff -n [namespace] [pod name] -o - | tshark -r - -t ad   # 3. 捕獲�
 
 ---
 ## 相關工具
-- 資料集 - [dataset.zip](dataset.zip)
+- 資料集（自己蒐集的，不一定有用）- [dataset.zip](dataset.zip)
 - IMS Bench SIPp — <https://sipp.sourceforge.net/ims_bench/reference.html#Installation>
 - Jitsi — <https://jitsi.org/>
 - Wireshark — <https://www.wireshark.org/download.html>
